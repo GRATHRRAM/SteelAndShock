@@ -1,3 +1,19 @@
+key_trigger {
+  input: KEY_W
+  action: "forward"
+}
+key_trigger {
+  input: KEY_S
+  action: "backward"
+}
+key_trigger {
+  input: KEY_A
+  action: "turnleft"
+}
+key_trigger {
+  input: KEY_D
+  action: "turnright"
+}
 mouse_trigger {
   input: MOUSE_BUTTON_1
   action: "touch"
