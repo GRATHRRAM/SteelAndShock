@@ -1,0 +1,4 @@
+images {
+  image: "/assets/textures/mapobj/bush1.png"
+}
+extrude_borders: 2
