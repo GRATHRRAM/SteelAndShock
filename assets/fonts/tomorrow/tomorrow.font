@@ -1,0 +1,5 @@
+font: "/assets/fonts/tomorrow/Tomorrow-Italic.ttf"
+material: "/builtins/fonts/font.material"
+size: 60
+shadow_blur: 0
+characters: " !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"

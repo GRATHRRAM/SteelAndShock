@@ -1,0 +1,6 @@
+function on_message(self, message_id, message, sender)
+	if message_id == hash("set_points") then
+		self.set_text(gui.get_node("player1_points"), message.player1)
+		self.set_text(gui.get_node("player2_points"), message.player2)
+	end
+end

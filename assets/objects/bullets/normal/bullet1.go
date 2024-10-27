@@ -22,6 +22,7 @@ embedded_components {
   "restitution: 0.5\n"
   "group: \"bullet\"\n"
   "mask: \"player\"\n"
+  "mask: \"border\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"
@@ -36,5 +37,6 @@ embedded_components {
   "  data: 148.69965\n"
   "  data: 10.0\n"
   "}\n"
+  "bullet: true\n"
   ""
 }

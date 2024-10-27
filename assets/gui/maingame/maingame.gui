@@ -1,0 +1,48 @@
+script: ""
+fonts {
+  name: "tomorrow"
+  font: "/assets/fonts/tomorrow/tomorrow.font"
+}
+nodes {
+  position {
+    y: 720.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "0\n"
+  ""
+  font: "tomorrow"
+  id: "player1_points"
+  pivot: PIVOT_NW
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 1197.0
+    y: 720.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+  }
+  type: TYPE_TEXT
+  text: "0\n"
+  ""
+  font: "tomorrow"
+  id: "player2_points"
+  pivot: PIVOT_NE
+  inherit_alpha: true
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

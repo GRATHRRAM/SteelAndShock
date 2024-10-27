@@ -13,6 +13,9 @@ function init(self)
 	self.RotationSpeed = 50
 	self.ShootCooldown = 1
 	self.ShootTime = 0
+
+	global_player1_points = 0
+	global_player2_points = 0
 	math.randomseed(socket.gettime()) 
 end
 
@@ -66,5 +69,5 @@ function SpawnBullet(self)
 		path = "Player2#bulletfactory"
 	end
 
-	local bullet_id = factory.create(path, pos, nil, {direction = vmath.rotate(go.get_rotation(), vmath.vector3(0,1,0))})
+	local bullet_id = factory.create(path, pos, nil, {direction = vmath.rotate(go.get_rotation(), vmath.vector3(0,1,0)), creator = go.get_id()})
 end

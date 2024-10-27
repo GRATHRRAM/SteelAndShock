@@ -1,6 +1,7 @@
 go.property("direction", vmath.vector3(0,1,0))
 go.property("speed", 3000)
 go.property("lifetime", 4)
+go.property("creator", "")
 
 function init(self)
 	self.timeoflife = 0
@@ -14,5 +15,13 @@ function fixed_update(self, dt)
 	self.timeoflife = self.timeoflife + dt
 	if self.timeoflife >= self.lifetime then
 		go.delete()
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	pprint(message)
+	if message_id == hash("collision_response") then
+		go.delete()
+		print("bozo")
 	end
 end
