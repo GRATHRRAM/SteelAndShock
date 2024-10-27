@@ -1,0 +1,14 @@
+local COUNT_OF_OBJ = 12
+local MAP_SIZE = 2400
+
+function init(self)
+	for i=0, COUNT_OF_OBJ do
+		local pos = vmath.vector3(math.random(MAP_SIZE*-1,MAP_SIZE),math.random(MAP_SIZE*-1,MAP_SIZE),0)
+		local angle = math.rad(math.random(0,360))
+		local scale = math.random(0.2,0.9)
+
+		local cmp = "MapGen#BushFactory"
+		factory.create(cmp, pos, vmath.quat_rotation_z(angle), vmath.vector3(scale,scale,scale))
+		
+	end
+end
