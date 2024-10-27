@@ -1,0 +1,15 @@
+function init(self)
+	go.property("direction", vmath.vector3(0,1,0))
+	go.property("speed", 3000)
+	go.property("lifetime", 5)
+	self.timeoflife = 0
+end
+
+function fixed_update(self, dt)
+	go.set_position(go.get_position() + self.direction * self.speed * dt)
+
+	self.timeoflife = self.timeoflife + dt
+	if self.timeoflife >= self.lifetime then
+		go.delete()
+	end
+end

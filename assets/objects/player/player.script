@@ -45,4 +45,23 @@ function on_input(self, action_id, action)
 	if action_id == hash("turnright") and self.With_Player == 1 or action_id == hash("turnright2") and self.With_Player == 2 then
 		self.rot = self.rot - ROTATION_SPEED
 	end
+	if action_id == hash("shoot") and self.With_Player == 1 or action_id == hash("shoot2") and self.With_Player == 2 then
+		SpawnBullet(self)
+	end
+end
+
+function SpawnBullet(self)
+	local pos = go.get_position()
+	pos.y = pos.y + 50
+
+	local path = ""
+
+	if self.With_Player == 1 then
+		path = "Player#bulletfactory"
+	else 
+		path = "Player2#bulletfactory"
+	end
+
+	local bullet_id = factory.create(path, pos)
+	go.set(bullet_id, "direction", vmath.vector3(1,0,0))
 end

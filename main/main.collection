@@ -57,6 +57,13 @@ embedded_instances {
   "}\\n"
   "\"\n"
   "}\n"
+  "embedded_components {\n"
+  "  id: \"bulletfactory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/assets/objects/bullets/normal/bullet1.go\\\"\\n"
+  "load_dynamically: true\\n"
+  "\"\n"
+  "}\n"
   ""
   position {
     x: 1470.0
@@ -231,6 +238,13 @@ embedded_instances {
   "    y: 0.5\n"
   "    z: 0.5\n"
   "  }\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"bulletfactory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/assets/objects/bullets/normal/bullet1.go\\\"\\n"
+  "load_dynamically: true\\n"
+  "\"\n"
   "}\n"
   ""
   position {

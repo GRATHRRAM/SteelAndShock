@@ -30,6 +30,14 @@ key_trigger {
   input: KEY_DOWN
   action: "backward2"
 }
+key_trigger {
+  input: KEY_F
+  action: "shoot"
+}
+key_trigger {
+  input: KEY_RSHIFT
+  action: "shoot2"
+}
 mouse_trigger {
   input: MOUSE_BUTTON_1
   action: "touch"
