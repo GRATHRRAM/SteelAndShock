@@ -21,3 +21,6 @@ publisher = Grah
 developer = Grah
 version = 0.1
 
+[factory]
+max_count = 1024
+
