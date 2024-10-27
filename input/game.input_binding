@@ -35,7 +35,7 @@ key_trigger {
   action: "shoot"
 }
 key_trigger {
-  input: KEY_SLASH
+  input: KEY_M
   action: "shoot2"
 }
 mouse_trigger {
