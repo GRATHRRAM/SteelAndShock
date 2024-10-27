@@ -1,5 +1,7 @@
 go.property("With_Player", 1)
 go.property("StartRot", 180)
+go.property("shooted", false)
+go.property("Points", 0)
 
 function init(self)
 	msg.post("#", "acquire_input_focus")
@@ -13,9 +15,7 @@ function init(self)
 	self.RotationSpeed = 50
 	self.ShootCooldown = 1
 	self.ShootTime = 0
-
-	global_player1_points = 0
-	global_player2_points = 0
+	
 	math.randomseed(socket.gettime()) 
 end
 
@@ -27,6 +27,10 @@ function fixed_update(self, dt)
 	go.set_position(self.pos)
 
 	self.ShootTime = self.ShootTime + dt
+
+	if self.shooted then
+		EndRound(self)
+	end
 end
 
 function on_message(self, message_id, message, sender)
@@ -69,5 +73,19 @@ function SpawnBullet(self)
 		path = "Player2#bulletfactory"
 	end
 
-	local bullet_id = factory.create(path, pos, nil, {direction = vmath.rotate(go.get_rotation(), vmath.vector3(0,1,0)), creator = go.get_id()})
+	local bullet_id = factory.create(path, pos, nil, {direction = vmath.rotate(go.get_rotation(),vmath.vector3(0,1,0)), witch_player = self.With_Player})
+end
+
+function EndRound(self)
+	print("end")
+	self.Points = self.Points + 1
+
+	if self.Witch_Player == 1 then
+		msg.post("gui#maingame", "set_points_player1")
+	end
+	if self.Witch_Player == 2 then
+		msg.post("gui#maingame", "set_points_player2")
+	end
+	
+	self.shooted = false
 end

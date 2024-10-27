@@ -1,4 +1,4 @@
-script: ""
+script: "/assets/gui/maingame/maingame.gui_script"
 fonts {
   name: "tomorrow"
   font: "/assets/fonts/tomorrow/tomorrow.font"

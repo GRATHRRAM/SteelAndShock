@@ -1,7 +1,7 @@
 go.property("direction", vmath.vector3(0,1,0))
+go.property("witch_player", 1) --witch player shoots 
 go.property("speed", 3000)
 go.property("lifetime", 4)
-go.property("creator", "")
 
 function init(self)
 	self.timeoflife = 0
@@ -19,9 +19,13 @@ function fixed_update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	pprint(message)
 	if message_id == hash("collision_response") then
-		go.delete()
-		print("bozo")
+		if message.other_id == hash("/Player") and self.witch_player == 2 then
+			go.set("/Player#player", "shooted", true)
+			go.delete()
+		end
+		if message.other_id == hash("/Player2") and self.witch_player == 1 then
+			go.set("/Player2#player", "shooted", true)
+		end
 	end
 end

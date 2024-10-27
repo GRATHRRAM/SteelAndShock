@@ -22,6 +22,7 @@ embedded_components {
   "restitution: 0.5\n"
   "group: \"bullet\"\n"
   "mask: \"player\"\n"
+  "mask: \"player2\"\n"
   "mask: \"border\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
