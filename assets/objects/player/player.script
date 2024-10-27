@@ -9,6 +9,7 @@ function init(self)
 	self.vel = vmath.vector3()
 	self.rot = 0
 	self.pos = vmath.vector3()
+	math.randomseed(socket.gettime()) 
 end
 
 function fixed_update(self, dt)
@@ -20,10 +21,9 @@ function fixed_update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash("collision_response") then
+	if message_id == hash("contact_point_response") then
 		if message.other_group == hash("border") then
-			local newpos = go.get_position() + message.normal * message.distance
-			go.set_position(newpos)
+			self.pos = self.pos + message.normal * message.distance
 		end 
 	end
 end
