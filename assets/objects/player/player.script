@@ -35,7 +35,7 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("contact_point_response") then
-		if message.other_group == hash("border") then
+		if message.other_group == hash("wall") then
 			self.pos = self.pos + message.normal * message.distance
 		end 
 	end
@@ -77,7 +77,6 @@ function SpawnBullet(self)
 end
 
 function EndRound(self)
-	print("end")
 	self.Points = self.Points + 1
 
 	if self.Witch_Player == 1 then

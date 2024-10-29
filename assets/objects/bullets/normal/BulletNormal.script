@@ -21,13 +21,13 @@ function fixed_update(self, dt)
 	end
 end
 
-function on_message(self, message_id, message, sender)
+function on_message(self, message_id, message, sender) -- TODO add deleting on other bullet colision
 	if message_id == hash("collision_response") then
-		if message.other_id == hash("/Player") and self.witch_player == 2 then
+		if message.other_id == hash("/Player") then
 			go.set("/Player#player", "shooted", true)
 			go.delete()
 		end
-		if message.other_id == hash("/Player2") and self.witch_player == 1 then
+		if message.other_id == hash("/Player2")then
 			go.set("/Player2#player", "shooted", true)
 			go.delete()
 		end

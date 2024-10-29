@@ -1,4 +1,5 @@
 function on_message(self, message_id, message, sender)
+	pprint(message)
 	if message_id == hash("set_points_player1") then
 		self.set_text(gui.get_node("/player1_points"), tostring(message.player1))
 		print("bb")
