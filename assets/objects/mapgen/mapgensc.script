@@ -22,3 +22,7 @@ function init(self)
 
 	end
 end
+
+function restart(self)
+
+end

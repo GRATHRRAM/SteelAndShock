@@ -11,8 +11,8 @@ function init(self)
 	self.vel = vmath.vector3()
 	self.rot = math.rad(self.StartRot)
 	self.pos = go.get_position()
-	self.MovingSpeed = 4
-	self.RotationSpeed = 50
+	self.MovingSpeed = 8 -- /2
+	self.RotationSpeed = 100
 	self.ShootCooldown = 1
 	self.ShootTime = 0
 	
@@ -79,11 +79,11 @@ end
 function EndRound(self)
 	self.Points = self.Points + 1
 
-	if self.Witch_Player == 1 then
-		msg.post("/gui#maingame", "set_points_player1", {self.Points})
+	if self.With_Player == 1 then
+		msg.post("/gui#maingame", "set_points_player2", {player2 = self.Points})
 	end
-	if self.Witch_Player == 2 then
-		msg.post("/gui#maingame", "set_points_player2", {self.Points})
+	if self.With_Player == 2 then		
+		msg.post("/gui#maingame", "set_points_player1", {player1 = self.Points})
 	end
 	
 	self.shooted = false

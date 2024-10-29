@@ -1,11 +1,11 @@
 function on_message(self, message_id, message, sender)
 	pprint(message)
 	if message_id == hash("set_points_player1") then
-		self.set_text(gui.get_node("/player1_points"), tostring(message.player1))
+		gui.set_text(gui.get_node(hash("player1_points")), tostring(message.player1))
 		print("bb")
 	end
 	if message_id == hash("set_points_player2") then
-		self.set_text(gui.get_node("/player2_points"), tostring(message.player2))
+		gui.set_text(gui.get_node(hash("player2_points")), tostring(message.player2))
 		print("bb")
 	end
 end
