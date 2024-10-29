@@ -3,26 +3,40 @@ local COUNT_OF_WALL = 15
 local MAP_SIZE = 2400
 
 function init(self)
+	self.obj = {}
+	newmap(self)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("restart") then
+		clean(self)
+		newmap(self)
+	end
+end
+
+function newmap(self)
 	for i=0, COUNT_OF_BUSH do
 		local pos = vmath.vector3(math.random(MAP_SIZE*-1,MAP_SIZE),math.random(MAP_SIZE*-1,MAP_SIZE),0)
 		local angle = math.rad(math.random(0,360))
 		local scale = math.random(0.2,0.9)
 
 		local cmp = "MapGen#BushFactory"
-		factory.create(cmp, pos, vmath.quat_rotation_z(angle), vmath.vector3(scale,scale,scale))
-		
+		table.insert(self.obj, factory.create(cmp, pos, vmath.quat_rotation_z(angle), vmath.vector3(scale,scale,scale)))
+
 	end
 	for i=0, COUNT_OF_WALL do
 		local pos = vmath.vector3(math.random(MAP_SIZE*-1,MAP_SIZE),math.random(MAP_SIZE*-1,MAP_SIZE),0)
 		local angle = math.rad(math.random(0,360))
 		local scale = math.random(0.2,1.5)
 
-		local cmp = "/MapGen#WallFactory"
-		factory.create(cmp, pos, vmath.quat_rotation_z(angle), vmath.vector3(scale,scale,scale))
-
+		local cmp = "MapGen#WallFactory"
+		table.insert(self.obj, factory.create(cmp, pos, vmath.quat_rotation_z(angle), vmath.vector3(scale,scale,scale)))
 	end
 end
 
-function restart(self)
-
+function clean(self)
+	for _, child_id in ipairs(self.obj) do
+		go.delete(child_id)
+	end
+	self.obj = {}
 end

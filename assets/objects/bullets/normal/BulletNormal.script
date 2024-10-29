@@ -1,7 +1,7 @@
 go.property("direction", vmath.vector3(0,1,0))
 go.property("witch_player", 1) --witch player shoots 
 go.property("speed", 2000)
-go.property("lifetime", 15)
+go.property("lifetime", 6)
 
 function init(self)
 	self.timeoflife = 0
