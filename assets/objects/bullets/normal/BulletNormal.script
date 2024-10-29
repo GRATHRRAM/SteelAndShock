@@ -1,12 +1,15 @@
 go.property("direction", vmath.vector3(0,1,0))
 go.property("witch_player", 1) --witch player shoots 
-go.property("speed", 3000)
-go.property("lifetime", 4)
+go.property("speed", 2000)
+go.property("lifetime", 15)
 
 function init(self)
 	self.timeoflife = 0
 	go.set_scale(vmath.vector3(0.25,0.25,0.25))
 	go.set(".", "position.z", -1)
+	go.set_position(go.get_position() + self.direction * 250)
+	msg.post("#collisionobject", "enable")
+	go.set_rotation(vmath.quat_rotation_z(math.atan2(self.direction.y, self.direction.x) - 1.6))
 end
 
 function fixed_update(self, dt)
@@ -26,6 +29,12 @@ function on_message(self, message_id, message, sender)
 		end
 		if message.other_id == hash("/Player2") and self.witch_player == 1 then
 			go.set("/Player2#player", "shooted", true)
+			go.delete()
 		end
+	end
+	if message_id == hash("contact_point_response") then
+		self.direction = self.direction - 2 * vmath.dot(self.direction, message.normal) *  message.normal
+		self.direction = vmath.normalize(self.direction)
+		go.set_rotation(vmath.quat_rotation_z(math.atan2(self.direction.y, self.direction.x) - 1.6))
 	end
 end

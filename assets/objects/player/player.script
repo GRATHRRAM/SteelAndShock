@@ -81,10 +81,10 @@ function EndRound(self)
 	self.Points = self.Points + 1
 
 	if self.Witch_Player == 1 then
-		msg.post("gui#maingame", "set_points_player1")
+		msg.post("/gui#maingame", "set_points_player1", {self.Points})
 	end
 	if self.Witch_Player == 2 then
-		msg.post("gui#maingame", "set_points_player2")
+		msg.post("/gui#maingame", "set_points_player2", {self.Points})
 	end
 	
 	self.shooted = false

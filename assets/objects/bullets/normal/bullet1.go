@@ -38,6 +38,5 @@ embedded_components {
   "  data: 148.69965\n"
   "  data: 10.0\n"
   "}\n"
-  "bullet: true\n"
   ""
 }
