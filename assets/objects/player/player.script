@@ -16,6 +16,7 @@ function init(self)
 	self.ShootTime = 0
 	self.StartPos = go.get_position()
 	self.StartRot = go.get_rotation()
+	self.bullets = {}
 	
 	math.randomseed(socket.gettime()) 
 end
@@ -44,6 +45,10 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("restart_pos") then
 		go.set_position(self.StartPos)
 		go.set_rotation(self.StartRot)
+		for _, child_id in ipairs(self.bullets) do
+			go.delete(child_id)
+		end
+		self.bullets = {}
 	end
 end
 
@@ -79,7 +84,7 @@ function SpawnBullet(self)
 		path = "Player2#bulletfactory"
 	end
 
-	local bullet_id = factory.create(path, pos, nil, {direction = vmath.rotate(go.get_rotation(),vmath.vector3(0,1,0)), witch_player = self.With_Player})
+	table.insert(self.bullets, factory.create(path, pos, nil, {direction = vmath.rotate(go.get_rotation(),vmath.vector3(0,1,0)), witch_player = self.With_Player}))
 end
 
 function EndRound(self)
