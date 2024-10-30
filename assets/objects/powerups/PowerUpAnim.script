@@ -1,0 +1,13 @@
+go.property("powerup",hash("bulletspeed"))
+go.property("val", 1000)
+
+function fixed_update(self, dt)
+	go.set(".", "euler.z", go.get(".", "euler.z") + 50 * dt)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("response") then
+		msg.post(sender, self.powerup, {value = self.val})
+		go.delete()
+	end
+end

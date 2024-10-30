@@ -1,0 +1,4 @@
+images {
+  image: "/assets/textures/powerups/spedupbullet.png"
+}
+extrude_borders: 2

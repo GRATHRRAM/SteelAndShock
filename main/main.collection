@@ -1,4 +1,12 @@
 name: "main"
+instances {
+  id: "SpeedUpBullet"
+  prototype: "/assets/objects/powerups/spedUpBullet/SpeedUpBullet.go"
+  position {
+    x: 2473.0
+    y: -1072.0
+  }
+}
 scale_along_z: 0
 embedded_instances {
   id: "Player"
@@ -42,6 +50,7 @@ embedded_instances {
   "mask: \\\"wall\\\"\\n"
   "mask: \\\"bullet\\\"\\n"
   "mask: \\\"player2\\\"\\n"
+  "mask: \\\"powerup\\\"\\n"
   "embedded_collision_shape {\\n"
   "  shapes {\\n"
   "    shape_type: TYPE_BOX\\n"
@@ -220,6 +229,7 @@ embedded_instances {
   "mask: \\\"wall\\\"\\n"
   "mask: \\\"bullet\\\"\\n"
   "mask: \\\"player\\\"\\n"
+  "mask: \\\"powerup\\\"\\n"
   "embedded_collision_shape {\\n"
   "  shapes {\\n"
   "    shape_type: TYPE_BOX\\n"
@@ -286,4 +296,12 @@ embedded_instances {
     x: 5.45
     y: 5.45
   }
+}
+embedded_instances {
+  id: "global_staff_handler"
+  data: "components {\n"
+  "  id: \"global_staff_handler\"\n"
+  "  component: \"/main/global_staff_handler.script\"\n"
+  "}\n"
+  ""
 }

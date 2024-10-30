@@ -7,15 +7,23 @@ function init(self)
 	msg.post("#", "acquire_input_focus")
 	msg.post("@render:", "use_camera_projection")
 	msg.post("/cam_hdl#camera", "acquire_camera_focus")
+
+	self.StartPos = go.get_position()
+	self.StartRot = go.get_rotation()
+	self.StartBulletSpeed = 1000
+	self.StartMovingSpeed = 600
+	self.StartRotationSpeed = 80
+
+	self.MovingSpeed   = self.StartMovingSpeed
+	self.RotationSpeed = self.StartRotationSpeed
+	self.BulletSpeed   = self.StartBulletSpeed
+
+	self.ShootCooldown = 1
+	self.ShootTime = 0
 	
 	self.rot = math.rad(self.StartRot)
 	self.pos = vmath.vector3()
-	self.MovingSpeed = 600
-	self.RotationSpeed = 80
-	self.ShootCooldown = 1
-	self.ShootTime = 0
-	self.StartPos = go.get_position()
-	self.StartRot = go.get_rotation()
+	
 	self.bullets = {}
 	
 	math.randomseed(socket.gettime()) 
@@ -40,15 +48,23 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("contact_point_response") then
 		if message.other_group == hash("wall") then
 			go.set_position(go.get_position() + message.normal * message.distance)
-		end 
+		end
+		if message.other_group == hash("powerup") then
+			msg.post(message.other_id, "response")
+		end
 	end
-	if message_id == hash("restart_pos") then
+	if message_id == hash("restart") then
+		self.BulletSpeed = self.StartBulletSpeed
+		
 		go.set_position(self.StartPos)
 		go.set_rotation(self.StartRot)
 		for _, child_id in ipairs(self.bullets) do
 			go.delete(child_id)
 		end
 		self.bullets = {}
+	end
+	if message_id == hash("bulletspeed") then
+		self.BulletSpeed = self.BulletSpeed + message.value
 	end
 end
 
@@ -75,7 +91,6 @@ end
 
 function SpawnBullet(self)
 	local pos = go.get_position()
-
 	local path = ""
 
 	if self.With_Player == 1 then
@@ -84,7 +99,7 @@ function SpawnBullet(self)
 		path = "Player2#bulletfactory"
 	end
 
-	table.insert(self.bullets, factory.create(path, pos, nil, {direction = vmath.rotate(go.get_rotation(),vmath.vector3(0,1,0)), witch_player = self.With_Player}))
+	table.insert(self.bullets, factory.create(path, pos, nil, {direction = vmath.rotate(go.get_rotation(),vmath.vector3(0,1,0)), witch_player = self.With_Player, speed = self.BulletSpeed}))
 end
 
 function EndRound(self)
@@ -97,8 +112,8 @@ function EndRound(self)
 		msg.post("/gui#maingame", "set_points_player1", {player1 = self.Points})
 	end
 
-	msg.post("/Player2", "restart_pos")
-	msg.post("/Player", "restart_pos")
+	msg.post("/Player2", "restart")
+	msg.post("/Player", "restart")
 	msg.post("/MapGen", "restart")
 	self.shooted = false
 end

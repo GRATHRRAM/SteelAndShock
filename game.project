@@ -19,7 +19,7 @@ scale_mode = stretch
 title = SteelAndShock
 publisher = Grah
 developer = Grah
-version = 0.1
+version = 0.2
 
 [factory]
 max_count = 1024
