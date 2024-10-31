@@ -1,5 +1,5 @@
 go.property("With_Player", 1)
-go.property("StartRot", 180)
+go.property("StartRotAngle", 180)
 go.property("shooted", false)
 go.property("Points", 0)
 
@@ -11,22 +11,23 @@ function init(self)
 	self.StartPos = go.get_position()
 	self.StartRot = go.get_rotation()
 	self.StartBulletSpeed = 1000
-	self.StartMovingSpeed = 600
+	self.StartMoveingSpeed = 600
 	self.StartRotationSpeed = 80
 
-	self.MovingSpeed   = self.StartMovingSpeed
+	self.MoveingSpeed  = self.StartMoveingSpeed
 	self.RotationSpeed = self.StartRotationSpeed
 	self.BulletSpeed   = self.StartBulletSpeed
 
 	self.ShootCooldown = 1
 	self.ShootTime = 0
 	
-	self.rot = math.rad(self.StartRot)
+	self.rot = math.rad(self.StartRotAngle)
 	self.pos = vmath.vector3()
 	
 	self.bullets = {}
 	
 	math.randomseed(socket.gettime()) 
+	print(self.rot)
 end
 
 function fixed_update(self, dt)
@@ -70,10 +71,10 @@ end
 
 function on_input(self, action_id, action)
 	if action_id == hash("forward") and self.With_Player == 1 or action_id == hash("forward2") and self.With_Player == 2 then
-		self.pos = self.pos + vmath.rotate(go.get_rotation(), vmath.vector3(0,self.MovingSpeed,0))
+		self.pos = self.pos + vmath.rotate(go.get_rotation(), vmath.vector3(0,self.MoveingSpeed,0))
 	end
 	if action_id == hash("backward") and self.With_Player == 1 or action_id == hash("backward2") and self.With_Player == 2 then
-		self.pos = self.pos - vmath.rotate(go.get_rotation(), vmath.vector3(0,self.MovingSpeed,0))
+		self.pos = self.pos - vmath.rotate(go.get_rotation(), vmath.vector3(0,self.MoveingSpeed,0))
 	end
 	if action_id == hash("turnleft") and self.With_Player == 1 or action_id == hash("turnleft2") and self.With_Player == 2 then
 		self.rot = self.rot + self.RotationSpeed
