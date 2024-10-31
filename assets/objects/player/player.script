@@ -11,8 +11,8 @@ function init(self)
 	self.StartPos = go.get_position()
 	self.StartRot = go.get_rotation()
 	self.StartBulletSpeed = 1000
-	self.StartMoveingSpeed = 600
-	self.StartRotationSpeed = 80
+	self.StartMoveingSpeed = 300
+	self.StartRotationSpeed = 40
 
 	self.MoveingSpeed  = self.StartMoveingSpeed
 	self.RotationSpeed = self.StartRotationSpeed
@@ -27,7 +27,6 @@ function init(self)
 	self.bullets = {}
 	
 	math.randomseed(socket.gettime()) 
-	print(self.rot)
 end
 
 function fixed_update(self, dt)
@@ -56,6 +55,8 @@ function on_message(self, message_id, message, sender)
 	end
 	if message_id == hash("restart") then
 		self.BulletSpeed = self.StartBulletSpeed
+		self.MoveingSpeed = self.StartMoveingSpeed
+		self.RotationSpeed = self.StartRotationSpeed
 		
 		go.set_position(self.StartPos)
 		go.set_rotation(self.StartRot)
@@ -66,6 +67,12 @@ function on_message(self, message_id, message, sender)
 	end
 	if message_id == hash("bulletspeed") then
 		self.BulletSpeed = self.BulletSpeed + message.value
+	end
+	if message_id == hash("tankspeed") then
+		self.MoveingSpeed = self.MoveingSpeed + message.value
+	end
+	if message_id == hash("tanksrotpeed") then
+		self.RotationSpeed = self.RotationSpeed + message.value
 	end
 end
 

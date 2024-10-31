@@ -3,8 +3,22 @@ instances {
   id: "SpeedUpBullet"
   prototype: "/assets/objects/powerups/spedUpBullet/SpeedUpBullet.go"
   position {
-    x: 2473.0
-    y: -1072.0
+    x: 4.0
+    y: 1617.0
+  }
+}
+instances {
+  id: "SpeedUpTank"
+  prototype: "/assets/objects/powerups/soedupTank/SpeedUpTank.go"
+  position {
+    y: 1235.0
+  }
+}
+instances {
+  id: "SpeedUpRotTank"
+  prototype: "/assets/objects/powerups/spedupRotTank/SpeedUpRotTank.go"
+  position {
+    y: 848.0
   }
 }
 scale_along_z: 0
