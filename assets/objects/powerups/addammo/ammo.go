@@ -1,15 +1,25 @@
 components {
-  id: "BulletNormal"
-  component: "/assets/objects/bullets/normal/BulletNormal.script"
+  id: "script"
+  component: "/assets/objects/powerups/PowerUpAnim.script"
+  properties {
+    id: "powerup"
+    value: "ammo"
+    type: PROPERTY_TYPE_HASH
+  }
+  properties {
+    id: "val"
+    value: "5.0"
+    type: PROPERTY_TYPE_NUMBER
+  }
 }
 embedded_components {
   id: "sprite"
   type: "sprite"
-  data: "default_animation: \"bullet1\"\n"
+  data: "default_animation: \"ammo\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "textures {\n"
   "  sampler: \"texture_sampler\"\n"
-  "  texture: \"/assets/objects/bullets/bullet.atlas\"\n"
+  "  texture: \"/assets/objects/powerups/PowerUpsTxt.atlas\"\n"
   "}\n"
   ""
 }
@@ -20,11 +30,9 @@ embedded_components {
   "mass: 0.0\n"
   "friction: 0.1\n"
   "restitution: 0.5\n"
-  "group: \"bullet\"\n"
+  "group: \"powerup\"\n"
   "mask: \"player\"\n"
   "mask: \"player2\"\n"
-  "mask: \"wall\"\n"
-  "mask: \"bullet\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"
@@ -35,10 +43,9 @@ embedded_components {
   "    index: 0\n"
   "    count: 3\n"
   "  }\n"
-  "  data: 74.65116\n"
-  "  data: 148.69965\n"
+  "  data: 100.327866\n"
+  "  data: 49.696968\n"
   "  data: 10.0\n"
   "}\n"
-  "bullet: true\n"
   ""
 }

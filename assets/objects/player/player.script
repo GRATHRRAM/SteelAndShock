@@ -13,7 +13,7 @@ function init(self)
 	self.StartBulletSpeed = 1000
 	self.StartMoveingSpeed = 300
 	self.StartRotationSpeed = 40
-	self.StartMaxArmor = 2
+	self.StartMaxArmor = 1
 	self.StartMaxBullets = 3
 	self.StartMaxBulletBounce = 1
 	self.StartBulletLifeTime = 3
@@ -29,6 +29,7 @@ function init(self)
 
 	self.bullets2shoot = self.MaxBullets
 	self.Armor = self.MaxArmor
+	self.Ammo  = self.MaxBullets 
 	
 	self.ShootCooldown = 1
 	self.ShootTime = 0
@@ -42,6 +43,10 @@ function init(self)
 
 	if self.With_Player == 1 then     msg.post("/gui#maingame", "set_armor_player1",{value = self.Armor})
 	elseif self.With_Player == 2 then msg.post("/gui#maingame", "set_armor_player2",{value = self.Armor})
+	end
+
+	if self.With_Player == 1 then msg.post("/gui#maingame", "set_ammo_player1" , {value = self.Ammo})
+	elseif self.With_Player == 2 then msg.post("/gui#maingame", "set_ammo_player2" , {value = self.Ammo})
 	end
 
 	math.randomseed(socket.gettime()) 
@@ -73,12 +78,16 @@ end
 function on_input(self, action_id, action)
 	if action_id == hash("forward") and self.With_Player == 1 or action_id == hash("forward2") and self.With_Player == 2 then
 		self.pos = self.pos + vmath.rotate(go.get_rotation(), vmath.vector3(0,self.MoveingSpeed,0))
+		
 	elseif action_id == hash("backward") and self.With_Player == 1 or action_id == hash("backward2") and self.With_Player == 2 then
 		self.pos = self.pos - vmath.rotate(go.get_rotation(), vmath.vector3(0,self.MoveingSpeed,0))
+		
 	elseif action_id == hash("turnleft") and self.With_Player == 1 or action_id == hash("turnleft2") and self.With_Player == 2 then
 		self.rot = self.rot + self.RotationSpeed
+		
 	elseif action_id == hash("turnright") and self.With_Player == 1 or action_id == hash("turnright2") and self.With_Player == 2 then
 		self.rot = self.rot - self.RotationSpeed
+		
 	elseif action_id == hash("shoot") and self.With_Player == 1 or action_id == hash("shoot2") and self.With_Player == 2 then
 		if self.ShootTime >= self.ShootCooldown then
 			SpawnBullet(self)
@@ -88,13 +97,25 @@ function on_input(self, action_id, action)
 end
 
 function SpawnBullet(self)
+	if self.Ammo <= 0 then return end
+	self.Ammo = self.Ammo - 1
+	
 	local pos = go.get_position()
 	local path = ""
 
-	if self.With_Player == 1 then	path = "Player#bulletfactory"
-	else path = "Player2#bulletfactory"	end
+	if self.With_Player == 1 then
+		path = "Player#bulletfactory"
+		msg.post("/gui#maingame", "set_ammo_player1" , {value = self.Ammo})
+	elseif self.With_Player == 2 then
+		path = "Player2#bulletfactory"
+		msg.post("/gui#maingame", "set_ammo_player2" , {value = self.Ammo})
+	end
 
-	table.insert(self.bullets, factory.create(path, pos, nil, {direction = vmath.rotate(go.get_rotation(),vmath.vector3(0,1,0)), witch_player = self.With_Player, speed = self.BulletSpeed}))
+	table.insert(self.bullets, factory.create(path, pos, nil, {
+		direction = vmath.rotate(go.get_rotation(),vmath.vector3(0,1,0)),
+		witch_player = self.With_Player,
+		speed = self.BulletSpeed
+	}))
 end
 
 function EndRound(self)
@@ -117,11 +138,16 @@ function restart(self)
 	self.BulletLifeTime  = self.StartBulletLifeTime
 	self.MaxArmor        = self.StartMaxArmor
 	self.Armor           = self.MaxArmor
+	self.Ammo            = self.MaxBullets
 
 	if self.With_Player == 1 then     msg.post("/gui#maingame", "set_armor_player1",{value = self.Armor})
 	elseif self.With_Player == 2 then msg.post("/gui#maingame", "set_armor_player2",{value = self.Armor})
 	end
 
+	if self.With_Player == 1 then msg.post("/gui#maingame", "set_ammo_player1" , {value = self.Ammo})
+	elseif self.With_Player == 2 then msg.post("/gui#maingame", "set_ammo_player2" , {value = self.Ammo})
+	end
+	
 	go.set_position(self.StartPos)
 	go.set_rotation(self.StartRot)
 	for _, child_id in ipairs(self.bullets) do	go.delete(child_id)	end
@@ -138,8 +164,14 @@ function TakeHit(self)
 end
 
 function CheckPowerUps(self, message_id, value)
-	if message_id == hash("bulletspeed")      then	self.BulletSpeed = self.BulletSpeed + value
-	elseif message_id == hash("tankspeed")    then	self.MoveingSpeed = self.MoveingSpeed + value
-	elseif message_id == hash("tanksrotpeed") then	self.RotationSpeed = self.RotationSpeed + value 
+	if message_id == hash("bulletspeed")      then self.BulletSpeed = self.BulletSpeed + value
+	elseif message_id == hash("tankspeed")    then self.MoveingSpeed = self.MoveingSpeed + value
+	elseif message_id == hash("tanksrotpeed") then self.RotationSpeed = self.RotationSpeed + value 
+	elseif message_id == hash("ammo") then
+		self.Ammo = self.Ammo + value
+		if self.Ammo > self.MaxBullets then self.Ammo = self.MaxBullets end
+		if self.With_Player == 1 then msg.post("/gui#maingame", "set_ammo_player1" , {value = self.Ammo})
+		elseif self.With_Player == 2 then msg.post("/gui#maingame", "set_ammo_player2" , {value = self.Ammo})
+		end
 	end
 end

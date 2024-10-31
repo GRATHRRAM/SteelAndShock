@@ -19,5 +19,11 @@ function on_message(self, message_id, message, sender)
 		
 	elseif message_id == hash("set_armor_player2") then
 		gui.set_text(gui.get_node(hash("player2_armor")), tostring(message.value))
+		
+	elseif message_id == hash("set_ammo_player1") then
+		gui.set_text(gui.get_node(hash("player1_ammo")), tostring(message.value))
+		
+	elseif message_id == hash("set_ammo_player2") then
+		gui.set_text(gui.get_node(hash("player2_ammo")), tostring(message.value))
 	end
 end
