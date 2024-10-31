@@ -24,11 +24,11 @@ end
 function on_message(self, message_id, message, sender) -- TODO add deleting on other bullet colision
 	if message_id == hash("collision_response") then
 		if message.other_id == hash("/Player") then
-			go.set("/Player#player", "shooted", true)
+			msg.post("/Player", "TakeHit")
 			go.delete()
 		end
 		if message.other_id == hash("/Player2")then
-			go.set("/Player2#player", "shooted", true)
+			msg.post("/Player2", "TakeHit")
 			go.delete()
 		end
 	end

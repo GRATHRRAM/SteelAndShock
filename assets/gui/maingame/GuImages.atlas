@@ -1,0 +1,4 @@
+images {
+  image: "/assets/textures/gui/armor.png"
+}
+extrude_borders: 2

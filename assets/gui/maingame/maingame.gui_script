@@ -4,14 +4,20 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("set_points_player1") then
-		gui.set_text(gui.get_node(hash("player1_points")), tostring(message.player1))
-	end
-	if message_id == hash("set_points_player2") then
-		gui.set_text(gui.get_node(hash("player2_points")), tostring(message.player2))
-	end
-	if message_id == hash("toggle_pause") then 
+		gui.set_text(gui.get_node(hash("player1_points")), tostring(message.value))
+		
+	elseif message_id == hash("set_points_player2") then
+		gui.set_text(gui.get_node(hash("player2_points")), tostring(message.value))
+		
+	elseif message_id == hash("toggle_pause") then 
 		self.penbled = not self.penbled
 		--gui.set_enabled(gui.get_node(hash("pause")), self.penbled) TODO Add pause
 		msg.post("#proxy", "set_time_step", {factor = 0, mode = 0})
+		
+	elseif message_id == hash("set_armor_player1") then
+		gui.set_text(gui.get_node(hash("player1_armor")), tostring(message.value))
+		
+	elseif message_id == hash("set_armor_player2") then
+		gui.set_text(gui.get_node(hash("player2_armor")), tostring(message.value))
 	end
 end

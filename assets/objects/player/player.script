@@ -1,7 +1,7 @@
 go.property("With_Player", 1)
 go.property("StartRotAngle", 180)
-go.property("shooted", false)
-go.property("Points", 0)
+go.property("GuiUrl", "/gui#maingame")
+go.property("Points", 0) -- TODO refactor and delete
 
 function init(self)
 	msg.post("#", "acquire_input_focus")
@@ -35,9 +35,15 @@ function init(self)
 	
 	self.rot = math.rad(self.StartRotAngle)
 	self.pos = vmath.vector3()
+
+	self.Points = 0
 	
 	self.bullets = {}
-	
+
+	if self.With_Player == 1 then     msg.post("/gui#maingame", "set_armor_player1",{value = self.Armor})
+	elseif self.With_Player == 2 then msg.post("/gui#maingame", "set_armor_player2",{value = self.Armor})
+	end
+
 	math.randomseed(socket.gettime()) 
 end
 
@@ -50,25 +56,17 @@ function fixed_update(self, dt)
 	self.pos = vmath.vector3()
 
 	self.ShootTime = self.ShootTime + dt
-
-	if self.shooted then
-		EndRound(self)
-	end
 end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("contact_point_response") then
-		if message.other_group == hash("wall") then
-			go.set_position(go.get_position() + message.normal * message.distance)
-		end
-		if message.other_group == hash("powerup") then
-			msg.post(message.other_id, "response")
-		end
+		if message.other_group == hash("wall") then go.set_position(go.get_position() + message.normal * message.distance) end
+		if message.other_group == hash("powerup") then msg.post(message.other_id, "response") end
 	end
-	if message_id == hash("restart") then
-		restart(self)
-	end
-
+	
+	if message_id == hash("restart") then restart(self) end
+	if message_id == hash("TakeHit") then TakeHit(self) end
+	
 	CheckPowerUps(self, message_id, message.value)
 end
 
@@ -102,13 +100,12 @@ end
 function EndRound(self)
 	self.Points = self.Points + 1
 
-	if self.With_Player == 1 then	msg.post("/gui#maingame", "set_points_player2", {player2 = self.Points})	end
-	if self.With_Player == 2 then	msg.post("/gui#maingame", "set_points_player1", {player1 = self.Points})	end
+	if self.With_Player == 1 then	msg.post("/gui#maingame", "set_points_player2", {value = self.Points})	end
+	if self.With_Player == 2 then	msg.post("/gui#maingame", "set_points_player1", {value = self.Points})	end
 
 	msg.post("/Player2", "restart")
 	msg.post("/Player", "restart")
 	msg.post("/MapGen", "restart")
-	self.shooted = false
 end
 
 function restart(self)
@@ -119,6 +116,11 @@ function restart(self)
 	self.MaxBulletBounce = self.StartMaxBulletBounce
 	self.BulletLifeTime  = self.StartBulletLifeTime
 	self.MaxArmor        = self.StartMaxArmor
+	self.Armor           = self.MaxArmor
+
+	if self.With_Player == 1 then     msg.post("/gui#maingame", "set_armor_player1",{value = self.Armor})
+	elseif self.With_Player == 2 then msg.post("/gui#maingame", "set_armor_player2",{value = self.Armor})
+	end
 
 	go.set_position(self.StartPos)
 	go.set_rotation(self.StartRot)
@@ -128,7 +130,11 @@ end
 
 function TakeHit(self)
 	self.Armor = self.Armor - 1
-	if self.Armor <= 0 then	EndRound(self)	end
+	if self.Armor < 0 then EndRound(self) end
+	
+	if self.With_Player == 1 then     msg.post("/gui#maingame", "set_armor_player1",{value = self.Armor})
+	elseif self.With_Player == 2 then msg.post("/gui#maingame", "set_armor_player2",{value = self.Armor}) 
+	end
 end
 
 function CheckPowerUps(self, message_id, value)
