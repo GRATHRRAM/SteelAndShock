@@ -130,6 +130,14 @@ end
 function EndRound(self)
 	self.Points = self.Points + 1
 
+	self.StartMoveingSpeed    = self.MoveingSpeed
+	self.StartRotationSpeed   = self.RotationSpeed
+	self.StartBulletSpeed     = self.BulletSpeed
+	self.StartMaxBullets      = self.MaxBullets
+	self.StartMaxBulletBounce = self.MaxBulletBounce
+	self.StartBulletLifeTime  = self.BulletLifeTime
+	self.StartMaxArmor        = self.MaxArmor
+
 	if self.With_Player == 1 then	msg.post("/gui#maingame", "set_points_player2", {value = self.Points})	end
 	if self.With_Player == 2 then	msg.post("/gui#maingame", "set_points_player1", {value = self.Points})	end
 

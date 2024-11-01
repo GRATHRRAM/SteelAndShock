@@ -24,3 +24,19 @@ version = 0.3.0
 [factory]
 max_count = 1024
 
+[render]
+clear_color_red = 0.5
+clear_color_green = 0.5
+clear_color_blue = 0.5
+
+[collectionfactory]
+max_count = 1024
+
+[sprite]
+max_count = 1024
+
+[physics]
+max_collision_object_count = 1024
+max_collisions = 1024
+max_contacts = 1024
+

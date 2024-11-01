@@ -1,68 +1,4 @@
 name: "main"
-instances {
-  id: "SpeedUpBullet"
-  prototype: "/assets/objects/powerups/spedUpBullet/SpeedUpBullet.go"
-  position {
-    x: 4.0
-    y: 1617.0
-  }
-}
-instances {
-  id: "SpeedUpTank"
-  prototype: "/assets/objects/powerups/spedupTank/SpeedUpTank.go"
-  position {
-    y: 1235.0
-  }
-}
-instances {
-  id: "SpeedUpRotTank"
-  prototype: "/assets/objects/powerups/spedupRotTank/SpeedUpRotTank.go"
-  position {
-    y: 848.0
-  }
-}
-instances {
-  id: "ammo"
-  prototype: "/assets/objects/powerups/addammo/ammo.go"
-  position {
-    y: 448.0
-  }
-}
-instances {
-  id: "armor"
-  prototype: "/assets/objects/powerups/addarmor/armor.go"
-  position {
-    y: 45.0
-  }
-}
-instances {
-  id: "maxarmor"
-  prototype: "/assets/objects/powerups/maxarmor/maxarmor.go"
-  position {
-    y: -355.0
-  }
-}
-instances {
-  id: "maxbounce"
-  prototype: "/assets/objects/powerups/maxbounce/maxbounce.go"
-  position {
-    y: -751.0
-  }
-}
-instances {
-  id: "lifetime"
-  prototype: "/assets/objects/powerups/bulletlifetime/lifetime.go"
-  position {
-    y: -1156.0
-  }
-}
-instances {
-  id: "maxbullets"
-  prototype: "/assets/objects/powerups/maxbullets/maxbullets.go"
-  position {
-    y: -1549.0
-  }
-}
 scale_along_z: 0
 embedded_instances {
   id: "Player"
@@ -148,16 +84,69 @@ embedded_instances {
   "  component: \"/assets/objects/mapgen/mapgensc.script\"\n"
   "}\n"
   "embedded_components {\n"
-  "  id: \"BushFactory\"\n"
-  "  type: \"factory\"\n"
-  "  data: \"prototype: \\\"/assets/objects/mapobj/bush.go\\\"\\n"
-  "\"\n"
-  "}\n"
-  "embedded_components {\n"
   "  id: \"WallFactory\"\n"
   "  type: \"factory\"\n"
   "  data: \"prototype: \\\"/assets/objects/mapobj/wall.go\\\"\\n"
-  "load_dynamically: true\\n"
+  "\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"Wall2Factory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/assets/objects/mapobj/wall2.go\\\"\\n"
+  "\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"ammoFactory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/assets/objects/powerups/addammo/ammo.go\\\"\\n"
+  "\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"armorFactory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/assets/objects/powerups/addarmor/armor.go\\\"\\n"
+  "\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"lifetimeFactory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/assets/objects/powerups/bulletlifetime/lifetime.go\\\"\\n"
+  "\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"bounceFactory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/assets/objects/powerups/maxbounce/maxbounce.go\\\"\\n"
+  "\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"maxarmorFactory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/assets/objects/powerups/maxarmor/maxarmor.go\\\"\\n"
+  "\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"maxbulletsFactory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/assets/objects/powerups/maxbullets/maxbullets.go\\\"\\n"
+  "\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"spedupbulletFactory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/assets/objects/powerups/spedUpBullet/SpeedUpBullet.go\\\"\\n"
+  "\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"speduptankFactory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/assets/objects/powerups/spedupTank/SpeedUpTank.go\\\"\\n"
+  "\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"speduprotFactory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/assets/objects/powerups/spedupRotTank/SpeedUpRotTank.go\\\"\\n"
   "\"\n"
   "}\n"
   ""
@@ -169,7 +158,7 @@ embedded_instances {
   "  id: \"camera\"\n"
   "  type: \"camera\"\n"
   "  data: \"aspect_ratio: 1.7\\n"
-  "fov: 4.1\\n"
+  "fov: 4.2\\n"
   "near_z: 0.1\\n"
   "far_z: 1000.0\\n"
   "auto_aspect_ratio: 1\\n"
@@ -201,7 +190,7 @@ embedded_instances {
   "  shapes {\\n"
   "    shape_type: TYPE_BOX\\n"
   "    position {\\n"
-  "      x: -3393.0\\n"
+  "      x: -3038.0\\n"
   "      y: 14.0\\n"
   "    }\\n"
   "    rotation {\\n"
@@ -212,7 +201,7 @@ embedded_instances {
   "  shapes {\\n"
   "    shape_type: TYPE_BOX\\n"
   "    position {\\n"
-  "      x: 3399.0\\n"
+  "      x: 3044.0\\n"
   "      y: 14.0\\n"
   "    }\\n"
   "    rotation {\\n"
@@ -224,7 +213,7 @@ embedded_instances {
   "    shape_type: TYPE_BOX\\n"
   "    position {\\n"
   "      x: -1.0\\n"
-  "      y: 2059.0\\n"
+  "      y: 1846.0\\n"
   "    }\\n"
   "    rotation {\\n"
   "      z: 0.70710677\\n"
@@ -237,7 +226,7 @@ embedded_instances {
   "    shape_type: TYPE_BOX\\n"
   "    position {\\n"
   "      x: -1.0\\n"
-  "      y: -1960.0\\n"
+  "      y: -1893.0\\n"
   "    }\\n"
   "    rotation {\\n"
   "      z: 0.70710677\\n"

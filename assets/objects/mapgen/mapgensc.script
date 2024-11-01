@@ -1,13 +1,15 @@
-local COUNT_OF_BUSH = 6
-local COUNT_OF_WALL = 15
-local MAP_SIZE = 2400
+local COUNT_OF_WALL = 10
+local COUNT_OF_WALL2 = 10
+local MAP_SIZE = 2200
+local OBJECT_SPAWN_TIME = 4
 
 function init(self)
 	self.obj = {}
 	newmap(self)
+	self.spawntime = OBJECT_SPAWN_TIME
 end
 
-function on_message(self, message_id, message, sender)
+function on_message(self, message_id, message, sender) -- TODO Wall2
 	if message_id == hash("restart") then
 		clean(self)
 		newmap(self)
@@ -15,21 +17,20 @@ function on_message(self, message_id, message, sender)
 end
 
 function newmap(self)
-	for i=0, COUNT_OF_BUSH do
-		local pos = vmath.vector3(math.random(MAP_SIZE*-1,MAP_SIZE),math.random(MAP_SIZE*-1,MAP_SIZE),0)
-		local angle = math.rad(math.random(0,360))
-		local scale = math.random(0.2,0.9)
-
-		local cmp = "MapGen#BushFactory"
-		table.insert(self.obj, factory.create(cmp, pos, vmath.quat_rotation_z(angle), vmath.vector3(scale,scale,scale)))
-
-	end
 	for i=0, COUNT_OF_WALL do
 		local pos = vmath.vector3(math.random(MAP_SIZE*-1,MAP_SIZE),math.random(MAP_SIZE*-1,MAP_SIZE),0)
 		local angle = math.rad(math.random(0,360))
 		local scale = math.random(0.2,1.5)
 
 		local cmp = "MapGen#WallFactory"
+		table.insert(self.obj, factory.create(cmp, pos, vmath.quat_rotation_z(angle), vmath.vector3(scale,scale,scale)))
+	end
+	for i=0, COUNT_OF_WALL2 do
+		local pos = vmath.vector3(math.random(MAP_SIZE*-1,MAP_SIZE),math.random(MAP_SIZE*-1,MAP_SIZE),0)
+		local angle = math.rad(math.random(0,360))
+		local scale = math.random(0.2,1.5)
+
+		local cmp = "MapGen#Wall2Factory"
 		table.insert(self.obj, factory.create(cmp, pos, vmath.quat_rotation_z(angle), vmath.vector3(scale,scale,scale)))
 	end
 end
@@ -39,4 +40,28 @@ function clean(self)
 		go.delete(child_id)
 	end
 	self.obj = {}
+end
+
+function fixed_update(self, dt)
+	self.spawntime = self.spawntime - dt
+	if self.spawntime <= 0 then
+		self.spawntime = OBJECT_SPAWN_TIME
+		
+		local rnd = math.random(0,1)
+		local pos = vmath.vector3(math.random(MAP_SIZE*-1,MAP_SIZE),math.random(MAP_SIZE*-1,MAP_SIZE),0)
+
+		if rnd == 1 then table.insert(self.obj, factory.create("#ammoFactory", pos, vmath.quat_rotation_z(0), vmath.vector3(1,1,1)))
+		else table.insert(self.obj, factory.create("#armorFactory", pos, vmath.quat_rotation_z(0), vmath.vector3(1,1,1))) end
+
+		rnd = math.random(0,7)
+		pos = vmath.vector3(math.random(MAP_SIZE*-1,MAP_SIZE),math.random(MAP_SIZE*-1,MAP_SIZE),0)
+		
+		if rnd == 1 then table.insert(self.obj, factory.create("#lifetimeFactory", pos, vmath.quat_rotation_z(0), vmath.vector3(1,1,1)))
+		elseif rnd == 2 then table.insert(self.obj, factory.create("#bounceFactory", pos, vmath.quat_rotation_z(0), vmath.vector3(1,1,1)))
+		elseif rnd == 3 then table.insert(self.obj, factory.create("#maxarmorFactory", pos, vmath.quat_rotation_z(0), vmath.vector3(1,1,1)))
+		elseif rnd == 4 then table.insert(self.obj, factory.create("#maxbulletsFactory", pos, vmath.quat_rotation_z(0), vmath.vector3(1,1,1)))
+		elseif rnd == 5 then table.insert(self.obj, factory.create("#spedupbulletFactory", pos, vmath.quat_rotation_z(0), vmath.vector3(1,1,1)))
+		elseif rnd == 6 then table.insert(self.obj, factory.create("#speduptankFactory", pos, vmath.quat_rotation_z(0), vmath.vector3(1,1,1)))
+		elseif rnd == 7 then table.insert(self.obj, factory.create("#speduprotFactory", pos, vmath.quat_rotation_z(0), vmath.vector3(1,1,1))) end
+	end
 end
