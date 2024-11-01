@@ -28,6 +28,41 @@ instances {
     y: 448.0
   }
 }
+instances {
+  id: "armor"
+  prototype: "/assets/objects/powerups/addarmor/armor.go"
+  position {
+    y: 45.0
+  }
+}
+instances {
+  id: "maxarmor"
+  prototype: "/assets/objects/powerups/maxarmor/maxarmor.go"
+  position {
+    y: -355.0
+  }
+}
+instances {
+  id: "maxbounce"
+  prototype: "/assets/objects/powerups/maxbounce/maxbounce.go"
+  position {
+    y: -751.0
+  }
+}
+instances {
+  id: "lifetime"
+  prototype: "/assets/objects/powerups/bulletlifetime/lifetime.go"
+  position {
+    y: -1156.0
+  }
+}
+instances {
+  id: "maxbullets"
+  prototype: "/assets/objects/powerups/maxbullets/maxbullets.go"
+  position {
+    y: -1549.0
+  }
+}
 scale_along_z: 0
 embedded_instances {
   id: "Player"

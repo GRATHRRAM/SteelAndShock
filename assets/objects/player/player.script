@@ -13,7 +13,8 @@ function init(self)
 	self.StartBulletSpeed = 1000
 	self.StartMoveingSpeed = 300
 	self.StartRotationSpeed = 40
-	self.StartMaxArmor = 1
+	self.StartArmor = 1
+	self.StartMaxArmor = 2
 	self.StartMaxBullets = 3
 	self.StartMaxBulletBounce = 1
 	self.StartBulletLifeTime = 4
@@ -28,7 +29,7 @@ function init(self)
 	
 
 	self.bullets2shoot = self.MaxBullets
-	self.Armor = self.MaxArmor
+	self.Armor = self.StartArmor
 	self.Ammo  = self.MaxBullets 
 	
 	self.ShootCooldown = 1
@@ -145,7 +146,7 @@ function restart(self)
 	self.MaxBulletBounce = self.StartMaxBulletBounce
 	self.BulletLifeTime  = self.StartBulletLifeTime
 	self.MaxArmor        = self.StartMaxArmor
-	self.Armor           = self.MaxArmor
+	self.Armor           = self.StartArmor
 	self.Ammo            = self.MaxBullets
 
 	if self.With_Player == 1 then     msg.post("/gui#maingame", "set_armor_player1",{value = self.Armor})
@@ -172,9 +173,21 @@ function TakeHit(self)
 end
 
 function CheckPowerUps(self, message_id, value)
-	if message_id == hash("bulletspeed")      then self.BulletSpeed = self.BulletSpeed + value
-	elseif message_id == hash("tankspeed")    then self.MoveingSpeed = self.MoveingSpeed + value
-	elseif message_id == hash("tanksrotpeed") then self.RotationSpeed = self.RotationSpeed + value 
+	if message_id == hash("bulletspeed")      then self.BulletSpeed     = self.BulletSpeed + value
+	elseif message_id == hash("tankspeed")    then self.MoveingSpeed    = self.MoveingSpeed + value
+	elseif message_id == hash("tanksrotpeed") then self.RotationSpeed   = self.RotationSpeed + value 
+	elseif message_id == hash("maxarmor")     then self.MaxArmor        = self.MaxArmor + value
+	elseif message_id == hash("maxbounce")    then self.MaxBulletBounce = self.MaxBulletBounce + value
+	elseif message_id == hash("lifetime")     then self.BulletLifeTime  = self.BulletLifeTime + value
+	elseif message_id == hash("maxbullets")   then self.MaxBullets      = self.MaxBullets + value
+
+	elseif message_id == hash("armor") then
+		self.Armor = self.Armor + value
+		if self.Armor > self.MaxArmor then self.Armor = self.MaxArmor end
+		if self.With_Player == 1 then     msg.post("/gui#maingame", "set_armor_player1",{value = self.Armor})
+	    elseif self.With_Player == 2 then msg.post("/gui#maingame", "set_armor_player2",{value = self.Armor}) 
+        end
+
 	elseif message_id == hash("ammo") then
 		self.Ammo = self.Ammo + value
 		if self.Ammo > self.MaxBullets then self.Ammo = self.MaxBullets end
