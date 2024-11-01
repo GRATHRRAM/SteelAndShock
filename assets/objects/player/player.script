@@ -16,7 +16,7 @@ function init(self)
 	self.StartMaxArmor = 1
 	self.StartMaxBullets = 3
 	self.StartMaxBulletBounce = 1
-	self.StartBulletLifeTime = 3
+	self.StartBulletLifeTime = 4
 
 	self.MoveingSpeed    = self.StartMoveingSpeed
 	self.RotationSpeed   = self.StartRotationSpeed
@@ -120,7 +120,9 @@ function SpawnBullet(self)
 	table.insert(self.bullets, factory.create(path, pos, nil, {
 		direction = vmath.rotate(go.get_rotation(),vmath.vector3(0,1,0)),
 		witch_player = self.With_Player,
-		speed = self.BulletSpeed
+		speed = self.BulletSpeed,
+		lifetime = self.BulletLifeTime,
+		maxbounce = self.MaxBulletBounce
 	}))
 end
 

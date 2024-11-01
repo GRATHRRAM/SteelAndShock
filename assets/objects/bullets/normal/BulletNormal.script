@@ -1,5 +1,7 @@
-go.property("direction", vmath.vector3(0,1,0))
+go.property("lifetime", 6)
 go.property("speed", 2000)
+go.property("direction", vmath.vector3(0, 1, 0))
+go.property("bounce", 2)
 go.property("lifetime", 6)
 
 function init(self)
@@ -12,6 +14,7 @@ function init(self)
 	go.set_rotation(vmath.quat_rotation_z(math.atan2(self.direction.y, self.direction.x) - 1.6))
 	
 	self.timeoflife = 0
+	self.cbounce = 0
 end
 
 function fixed_update(self, dt)
@@ -43,5 +46,7 @@ function on_message(self, message_id, message, sender)
 		self.direction = self.direction - 2 * vmath.dot(self.direction, message.normal) *  message.normal
 		self.direction = vmath.normalize(self.direction)
 		go.set_rotation(vmath.quat_rotation_z(math.atan2(self.direction.y, self.direction.x) - 1.6))
+		self.cbounce = self.cbounce + 1
+		if self.cbounce > self.bounce then go.delete() end
 	end
 end
